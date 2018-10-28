@@ -2,7 +2,7 @@
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: b62943187e0ef09e1e6c23ec83c49d57ac866bcbe17bab38babf847efd7a27f0
+-- hash: 439316d413d1e3223192a545603b1330fd53f20d966981fd478847df062af2db
 
 name:           smailws
 version:        0.1
@@ -21,6 +21,7 @@ executable smailws
     , base >=4.9 && <5
     , containers
     , dhall
+    , http-types
     , jwt >=0.7 && <0.8
     , mime-mail
     , scotty
