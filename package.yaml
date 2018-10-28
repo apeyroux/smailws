@@ -1,0 +1,21 @@
+name: smailws
+version: 0.1
+
+ghc-options: -Wall
+
+dependencies:
+  - aeson
+  - base >= 4.9 && < 5
+  - containers
+  - jwt >= 0.7 && < 0.8
+  - mime-mail
+  - scotty
+  - text
+  - dhall
+  - time
+  - http-types
+  - wai-extra
+
+executable:
+  main: Main.hs
+  source-dirs: app
