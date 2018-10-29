@@ -29,7 +29,7 @@ jswt2user :: Web.JWT.JSON -> Maybe User
 jswt2user jswt = mbuser (lookclaims jswt "uid") (lookclaims jswt "username") (lookclaims jswt "mail")
   where
     lookclaims :: Web.JWT.JSON -> T.Text -> Maybe T.Text
-    lookclaims token key = case (fmap (Data.Map.Strict.lookup key) (uclaims token)) of
+    lookclaims token key = case fmap (Data.Map.Strict.lookup key) $ uclaims token of
       Just r -> Data.Aeson.decode $ encode r
       Nothing -> Nothing
     mbuser :: (Maybe T.Text) -> (Maybe T.Text) -> (Maybe T.Text) -> Maybe User
@@ -39,11 +39,13 @@ jswt2user jswt = mbuser (lookclaims jswt "uid") (lookclaims jswt "username") (lo
     mbuser (Just u) (Just un) (Just m) = Just $ User u un m
 
 uclaims :: JSON -> Maybe ClaimsMap
-uclaims j = fmap (unregisteredClaims . claims) (Web.JWT.decode j)
+uclaims = fmap (unregisteredClaims . claims) . Web.JWT.decode
 
 main :: IO()
 main = do
+
   putStrLn "Starting ..."
+
   dbu <- input auto "./config.dhall"
   let cfg = (dbu :: Cfg)
   scotty 3000 $ do
